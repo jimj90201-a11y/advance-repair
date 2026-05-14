@@ -3,6 +3,7 @@ package com.example.advancerepair;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.core.component.DataComponents;
 
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,9 +28,7 @@ public class AnvilHandler {
             int newDamage = Math.max(0, left.getDamageValue() - repair);
             output.setDamageValue(newDamage);
 
-           // Replace your old boolean hasTrim line with this:
-boolean hasTrim = left.hasTag() && left.getTag().contains("Trim");
-            
+            boolean hasTrim = left.has(DataComponents.TRIM);
             boolean enchanted = left.isEnchanted();
 
             int xpCost;
@@ -64,11 +63,21 @@ boolean hasTrim = left.hasTag() && left.getTag().contains("Trim");
             if (material.is(Items.GOLD_INGOT)) return 0.7f;
         }
 
+        // 🟤 Leather
+        if (isLeather(item)) {
+            if (material.is(Items.LEATHER)) return 1.0f;
+        }
+
+        // ⛓️ Chainmail (both supported)
+        if (isChainmail(item)) {
+            if (material.is(Items.CHAIN)) return 0.6f;
+            if (material.is(Items.IRON_INGOT)) return 0.5f;
+        }
+
         return -1f;
     }
 
-    // 🔽 Detect ALL tools + armor properly
-
+    // 🔽 Netherite (armor + tools)
     private static boolean isNetherite(Item item) {
         return item == Items.NETHERITE_HELMET
             || item == Items.NETHERITE_CHESTPLATE
@@ -81,6 +90,7 @@ boolean hasTrim = left.hasTag() && left.getTag().contains("Trim");
             || item == Items.NETHERITE_HOE;
     }
 
+    // 🔽 Diamond (armor + tools)
     private static boolean isDiamond(Item item) {
         return item == Items.DIAMOND_HELMET
             || item == Items.DIAMOND_CHESTPLATE
@@ -93,6 +103,7 @@ boolean hasTrim = left.hasTag() && left.getTag().contains("Trim");
             || item == Items.DIAMOND_HOE;
     }
 
+    // 🔽 Iron (armor + tools)
     private static boolean isIron(Item item) {
         return item == Items.IRON_HELMET
             || item == Items.IRON_CHESTPLATE
@@ -103,5 +114,21 @@ boolean hasTrim = left.hasTag() && left.getTag().contains("Trim");
             || item == Items.IRON_AXE
             || item == Items.IRON_SHOVEL
             || item == Items.IRON_HOE;
+    }
+
+    // 🔽 Leather (armor only)
+    private static boolean isLeather(Item item) {
+        return item == Items.LEATHER_HELMET
+            || item == Items.LEATHER_CHESTPLATE
+            || item == Items.LEATHER_LEGGINGS
+            || item == Items.LEATHER_BOOTS;
+    }
+
+    // 🔽 Chainmail (armor only)
+    private static boolean isChainmail(Item item) {
+        return item == Items.CHAINMAIL_HELMET
+            || item == Items.CHAINMAIL_CHESTPLATE
+            || item == Items.CHAINMAIL_LEGGINGS
+            || item == Items.CHAINMAIL_BOOTS;
     }
 }
