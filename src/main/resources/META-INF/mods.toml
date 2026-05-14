@@ -7,6 +7,8 @@ modId="advancerepair"
 version="1.0"
 displayName="Advance Repair"
 logoFile="advancerepair.png"
+authors = "Gamerof_pro"
+support = "https://discord.com/channels/1501949872239022132/1501954245539266601"
 description='''
 Repair system with in-game materials and XP scaling.
 '''
