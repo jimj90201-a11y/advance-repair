@@ -3,7 +3,6 @@ package com.example.advancerepair;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.core.component.DataComponents;
 
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,7 +27,9 @@ public class AnvilHandler {
             int newDamage = Math.max(0, left.getDamageValue() - repair);
             output.setDamageValue(newDamage);
 
-            boolean hasTrim = left.has(DataComponents.TRIM);
+           // Replace your old boolean hasTrim line with this:
+boolean hasTrim = left.hasTag() && left.getTag().contains("Trim");
+            
             boolean enchanted = left.isEnchanted();
 
             int xpCost;
