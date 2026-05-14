@@ -32,10 +32,10 @@ public class AnvilHandler {
 
             int xpCost;
 
-            if (hasTrim && enchanted) xpCost = 20;
-            else if (enchanted) xpCost = 15;
-            else if (hasTrim) xpCost = 12;
-            else xpCost = 10;
+            if (hasTrim && enchanted) xpCost = 10;
+            else if (enchanted) xpCost = 5;
+            else if (hasTrim) xpCost = 3;
+            else xpCost = 1;
 
             event.setOutput(output);
             event.setCost(xpCost);
